@@ -51,9 +51,8 @@ int main(int argc, char const *argv[])
         }
 
         //Reading
-        const int buf_size = 300000;
-        char buffer[buf_size] = {0};
-        int read_bytes = read(new_socket , buffer, buf_size);
+        char buffer[30000] = {0};
+        int read_bytes = read(new_socket , buffer, 30000);
         //printf("%s\n",buffer );
 
         //Writing
