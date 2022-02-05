@@ -1,3 +1,5 @@
+Nathan Mailhot
+
 # CS118 Project 1
 
 This is the repo for winter22 cs118 project 1.
