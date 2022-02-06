@@ -1,5 +1,8 @@
 Nathan Mailhot
 
+https://www.php.net/manual/en/function.strcasecmp.php
+https://www.tutorialspoint.com/c_standard_library/c_function_strtok.htm
+
 # CS118 Project 1
 
 This is the repo for winter22 cs118 project 1.
