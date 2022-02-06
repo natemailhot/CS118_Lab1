@@ -85,8 +85,7 @@ void handle_socket(int socket)
     file++;
 
     //Adding functionality to not need extension
-    //char *type = strchr(file, '.');
-
+    char *type = strrchr(file, '.');
     
     char* e404 = "<HTML><HEAD><TITLE>404 not found error</TITLE></HEAD><BODY><H1>404 not found error</H1></BODY></HTML>";
     //Send a response
@@ -96,13 +95,34 @@ void handle_socket(int socket)
         perror("Error: File doesn't exist");
 	return;
     }
-    
+
+    const char *names [7] = {".html", ".htm", ".txt", ".jpeg", ".jpg", ".png"};
+
     FILE *f = fopen(file, "r");
     if (!f){
-	header(socket, file, 0, 1);
-	write(socket, e404, strlen(e404));
-       	perror("Error: Opening file");
-        return;
+	int found = 0;
+	if(type == NULL){ //there is no . in the file name so we must search for it
+	    for(int i = 0; i < 7; i++){
+		char temp[100];
+		strcpy(temp, file);
+		strcat(temp, names[i]);
+		printf(temp, strlen(temp));
+		printf("\n");
+		f = fopen(temp, "r");
+		if(!f){
+		    continue;
+		}
+		found = 1;
+		file = temp;
+		break;
+	    } 
+	}
+	if(!found){
+	    header(socket, file, 0, 1);
+	    write(socket, e404, strlen(e404));
+       	    perror("Error: Opening file");
+            return;
+	}
     }
 
     if (!fseek(f, 0, SEEK_END)){
